@@ -4,7 +4,7 @@
 // @namespace   rtonne
 // @match       https://www.youtube.com/*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @version     1.7
+// @version     1.8
 // @author      Rtonne
 // @description Adds a button to remove videos from playlists just like on mobile
 // @run-at      document-end
