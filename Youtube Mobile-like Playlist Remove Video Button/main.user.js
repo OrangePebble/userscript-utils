@@ -4,7 +4,7 @@
 // @namespace   rtonne
 // @match       https://www.youtube.com/*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @version     1.8
+// @version     1.9
 // @author      Rtonne
 // @description Adds a button to remove videos from playlists just like on mobile
 // @run-at      document-end
@@ -88,11 +88,7 @@ const observer = new MutationObserver(async () => {
     currentUrl = newUrl;
 
     // If the list cannot be sorted, we assume we can't remove from it either
-    if (
-      !document.querySelector(
-        "#header-container > #filter-menu > yt-sort-filter-sub-menu-renderer",
-      )
-    ) {
+    if (isEditableList()) {
       return;
     }
 
@@ -158,11 +154,7 @@ const sortObserver = new MutationObserver(() => {
   if (!urlRegex.test(window.location.href)) {
     return;
   }
-  if (
-    !document.querySelector(
-      "#header-container > #filter-menu > yt-sort-filter-sub-menu-renderer",
-    )
-  ) {
+  if (!isEditableList()) {
     document
       .querySelectorAll(".rtonne-youtube-playlist-delete-button")
       .forEach((element) => element.remove());
@@ -172,6 +164,17 @@ sortObserver.observe(document.body, {
   childList: true,
   subtree: true,
 });
+
+function isEditableList() {
+  return (
+    !document.querySelector(
+      "#header-container > #filter-menu > yt-sort-filter-sub-menu-renderer",
+    ) &&
+    !document.querySelector(
+      "#header > chip-bar-view-model.ytd-item-section-renderer button.ytChipShapeButtonReset",
+    )
+  );
+}
 
 function getYoutubeTrashSvg() {
   const xmlns = "http://www.w3.org/2000/svg";
