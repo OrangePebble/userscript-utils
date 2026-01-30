@@ -4,7 +4,7 @@
 // @namespace   rtonne
 // @match       https://www.youtube.com/*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=youtube.com
-// @version     1.9
+// @version     1.10
 // @author      Rtonne
 // @description Adds a button to remove videos from playlists just like on mobile
 // @run-at      document-end
@@ -154,7 +154,7 @@ const sortObserver = new MutationObserver(() => {
   if (!urlRegex.test(window.location.href)) {
     return;
   }
-  if (!isEditableList()) {
+  if (isEditableList()) {
     document
       .querySelectorAll(".rtonne-youtube-playlist-delete-button")
       .forEach((element) => element.remove());
