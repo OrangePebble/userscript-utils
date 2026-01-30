@@ -88,7 +88,7 @@ const observer = new MutationObserver(async () => {
     currentUrl = newUrl;
 
     // If the list cannot be sorted, we assume we can't remove from it either
-    if (isEditableList()) {
+    if (isNotEditableList()) {
       return;
     }
 
@@ -154,7 +154,7 @@ const sortObserver = new MutationObserver(() => {
   if (!urlRegex.test(window.location.href)) {
     return;
   }
-  if (isEditableList()) {
+  if (isNotEditableList()) {
     document
       .querySelectorAll(".rtonne-youtube-playlist-delete-button")
       .forEach((element) => element.remove());
@@ -165,7 +165,7 @@ sortObserver.observe(document.body, {
   subtree: true,
 });
 
-function isEditableList() {
+function isNotEditableList() {
   return (
     !document.querySelector(
       "#header-container > #filter-menu > yt-sort-filter-sub-menu-renderer",
