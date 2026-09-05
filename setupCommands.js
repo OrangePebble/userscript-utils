@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        setupCommands
 // @license     MIT
-// @namespace   rtonne
+// @namespace   orangepebble
 // @match       *://*/*
 // @version     2.1
-// @author      Rtonne
+// @author      OrangePebble
 // @description Library that creates regular, toggle, and radio menu commands for userscript managers
 // @grant       GM.registerMenuCommand
 // @grant       GM.unregisterMenuCommand
@@ -89,7 +89,7 @@ async function _registerCommand(command_list, command) {
   if (command.type === "radio") {
     const checked_radio_value = await GM.getValue(
       command.id,
-      command.default_value
+      command.default_value,
     );
     for (const radio of command.radios) {
       if (radio.value === checked_radio_value) {
@@ -110,7 +110,7 @@ async function _registerCommand(command_list, command) {
             title: radio.tooltip,
             accessKey: radio.access_key,
             autoClose: radio.auto_close !== undefined && radio.auto_close,
-          }
+          },
         );
       }
     }
@@ -129,7 +129,7 @@ async function _registerCommand(command_list, command) {
         title: command.tooltip,
         accessKey: command.access_key,
         autoClose: command.auto_close !== undefined && command.auto_close,
-      }
+      },
     );
   } else if (command.type === "button") {
     GM.registerMenuCommand(command.text, command.clickFunction, {
@@ -169,7 +169,7 @@ async function _radioCommand(command_list, command, value) {
 async function _toggleCommand(command_list, command) {
   await GM.setValue(
     command.id,
-    !(await GM.getValue(command.id, command.default_value))
+    !(await GM.getValue(command.id, command.default_value)),
   );
   _runCommandCheckFunctions(command);
   if (_can_replace_in_place) {
